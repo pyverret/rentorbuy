@@ -9,11 +9,15 @@ describe('Home Page', () => {
     const homePage = shallow(<Home />);
 
     it('Home Text Not Rendered', () => {
-        expect(homePage.find('p').text()).toBe('Home Text') 
+        const title = homePage.find('p').text();
+
+        expect(title).toBe('Home Text') 
     });
 
     it('Montly Rent input not displayed', () => {
-        expect(homePage.find('#rent-montly').length).toEqual(1);
+        const input = homePage.find('#rent-montly');
+
+        expect(input.length).toEqual(1);
     });
 
     // it("Label Text", () => {
@@ -37,6 +41,8 @@ describe('Home Page', () => {
     //   });
 
     it('Montly Rent Increase input not displayed', () => {
-        expect(homePage.find('#rent-increase-percentage').length).toEqual(1);
+        const input = homePage.find('#rent-increase-percentage');
+
+        expect(input.length).toEqual(1);
     });
 });
