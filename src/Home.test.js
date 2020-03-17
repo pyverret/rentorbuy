@@ -1,5 +1,5 @@
 import React from "react";
-import {configure, shallow} from "enzyme";
+import {configure, shallow, mount} from "enzyme";
 import Home from "./Home";
 import Adapter from "enzyme-adapter-react-16";
 
@@ -8,35 +8,74 @@ configure({ adapter: new Adapter() });
 describe('Home Page', () => {
     const homePage = shallow(<Home />);
 
-    it('Home Text Not Rendered', () => {
-        expect(homePage.find('p').text()).toBe('Home Text') 
+    describe('Static content', () => {
+        it('Home Text Not Rendered', () => {
+            const title = homePage.find('p').text();
+    
+            expect(title).toBe('Home Text') 
+        });
     });
 
-    it('Montly Rent input not displayed', () => {
-        expect(homePage.find('#rent-montly').length).toEqual(1);
+    describe('Monthly Rent', () => {
+        const selector = 'rent-monthly';
+        const input = homePage.find(`#${selector}`);
+        const label = homePage.find({htmlFor: selector});
+
+        it('Not Displayed', () => {    
+            expect(input.length).toBe(1);
+            expect(label.length).toBe(1);
+        });
+
+        it('Wrong default value', () => {
+            expect(homePage.state()[selector]).toBe(0);
+        });
+
+        it('Label is wrong',() => {
+            expect(label.text()).toEqual('Monthly Rent Cost');
+        });
+
+        // TODO TEST STATE DOESNT CHANGE 
+        it("input Change", () => {
+            input.simulate('change', {target: {name: 'value', value: 123}});
+            expect(homePage.state()[selector]).toBe(123);
+        });
+
+        // TODO: State does not change
+        // it("Input Negative Number Return Zero", () => {
+        //     input.simulate("change", { target: { value: -1 } });
+    
+        //     expect(homePage.state()[selector]).toEqual(0);
+        // });
     });
 
-    // it("Label Text", () => {
-    //     expect(inputGroup.find("label").text()).toEqual("Label Title");
-    //   });
+    describe('Monthly Rent Increase', () => {
+        const selector = 'rent-increase-percentage';
+        const input = homePage.find(`#${selector}`);
+        const label = homePage.find({htmlFor: selector});
 
-    //   it("Input Default Value", () => {
-    //     expect(inputGroup.state("value")).toEqual(0);
-    //   });
+        it('Not Displayed', () => {
+            expect(input.length).toEqual(1);
+        });
 
-    //   it("input Change", () => {
-    //     inputGroup.find("input").simulate("change", { target: { value: 123 } });
-    
-    //     expect(inputGroup.state("value")).toEqual(123);
-    //   });
-    
-    //   it("Input Negative Number Return Zero", () => {
-    //     inputGroup.find("input").simulate("change", { target: { value: -1 } });
-    
-    //     expect(inputGroup.state("value")).toEqual(0);
-    //   });
+        it('Wrong default value', () => {
+            expect(homePage.state()[selector]).toBe(0);
+        });
 
-    it('Montly Rent Increase input not displayed', () => {
-        expect(homePage.find('#rent-increase-percentage').length).toEqual(1);
+        it('Label is wrong',() => {
+            expect(label.text()).toEqual('Rent Increase');
+        });
+
+        // TODO TEST STATE DOESNT CHANGE 
+        it("input Change", () => {
+            input.simulate('change', {target: {name: 'value', value: 123}});
+            expect(homePage.state()[selector]).toBe(123);
+        });
+
+        // TODO: State does not change
+        // it("Input Negative Number Return Zero", () => {
+        //     input.simulate("change", { target: { value: -1 } });
+    
+        //     expect(homePage.state()[selector]).toEqual(0);
+        // });
     });
 });
