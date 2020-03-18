@@ -38,7 +38,7 @@ class Home extends React.Component {
             inputs.push(
                 <div key={input.name}>
                     <label htmlFor={input.name}>{input.text}</label>
-                    <input id={input.name} type={input.type} value={this.state[input.name]} onChange={this.onChange} />
+                    <input id={input.name} type={input.type} value={this.state[input.name]} onChange={this.onChange(input.name)} />
                 </div>
             );
         });
@@ -46,8 +46,9 @@ class Home extends React.Component {
         return inputs;
     }
 
-    onChange (event) {
-        const key = event.target.id;
+    onChange = (key) => (event) => {
+        // const key = event.target.id;
+        
         const value = event.target.type === 'number' 
             ? isNaN(parseInt(event.target.value)) || parseInt(event.target.value) < 0 ? 0 : event.target.value 
             : event.target.value;
