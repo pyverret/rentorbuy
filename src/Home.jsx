@@ -1,4 +1,5 @@
 import React from 'react';
+import {onlyPositiveNumber} from './utils/number'
 
 class Home extends React.Component {
     constructor(props) {
@@ -6,7 +7,8 @@ class Home extends React.Component {
 
         this.inputFields = [
             {name:'rent-monthly', value: 0, text:'Monthly Rent Cost', type: 'number'},
-            {name:'rent-increase-percentage', value: 0, text:'Rent Increase', type: 'number'}
+            {name:'rent-increase-percentage', value: 0, text:'Yearly Rent Increase', type: 'number'},
+            {name:'duration', value: 0, text:'Duration', type: 'number'}
         ];
 
         this.state = this.createDefaultStates();
@@ -38,7 +40,7 @@ class Home extends React.Component {
             inputs.push(
                 <div key={input.name}>
                     <label htmlFor={input.name}>{input.text}</label>
-                    <input id={input.name} type={input.type} value={this.state[input.name]} onChange={this.onChange} />
+                    <input id={input.name} type={input.type} value={this.state[input.name]} onChange={this.onChange(input.name, input.type)} />
                 </div>
             );
         });
@@ -46,10 +48,9 @@ class Home extends React.Component {
         return inputs;
     }
 
-    onChange (event) {
-        const key = event.target.id;
-        const value = event.target.type === 'number' 
-            ? isNaN(parseInt(event.target.value)) || parseInt(event.target.value) < 0 ? 0 : parseInt(event.target.value) 
+    onChange = (key, type) => (event) => {
+        const value = type === 'number' 
+            ? onlyPositiveNumber(event.target.value) 
             : event.target.value;
 
         this.setState({[key]: value});
