@@ -1,5 +1,6 @@
 import React from 'react';
-import {onlyPositiveNumber} from './utils/number'
+import RentTable from './components/RentTable';
+import {onlyPositiveNumber} from './utils/number';
 
 class Home extends React.Component {
     constructor(props) {
@@ -30,6 +31,7 @@ class Home extends React.Component {
         return <div>
                 <p>Home Text</p>
                 {this.createInputs()}
+                <RentTable duration={this.state['duration']} rent={this.state['rent-monthly']} increase={this.state['rent-increase-percentage']}/>
             </div>
     }
 
