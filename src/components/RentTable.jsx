@@ -1,4 +1,5 @@
 import React from 'react';
+import {percentageIncrease} from '../utils/number';
 
 class RentTable extends React.Component {
     constructor(props) {
@@ -15,9 +16,16 @@ class RentTable extends React.Component {
 
     createRows () {
         const rentRows = [];
+        let rent = this.props.rent;
 
         for(var i = 1; i <= this.props.duration; i++) {
-            rentRows.push(<tr key={i}><td>{i}</td></tr>);        
+            rent = percentageIncrease(rent, this.props.increase, i);
+
+            const row = <tr key={i}>
+                <td className="year">{i}</td>
+                <td className="rent">{rent.toFixed(2)}</td>
+            </tr>;
+            rentRows.push(row);        
         }
 
         return rentRows;

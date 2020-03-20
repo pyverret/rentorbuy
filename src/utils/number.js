@@ -3,7 +3,11 @@ export function onlyPositiveNumber (number) {
         return parseFloat(number);
     }
 
-    return 0;
+    return number === '' ? '' : 0;
 }
 
-export default {onlyPositiveNumber};
+export function percentageIncrease (amount, increase, index) {
+    return index > 1 ? amount * (1 + increase / 100) : amount;
+}
+
+export default {onlyPositiveNumber, percentageIncrease};

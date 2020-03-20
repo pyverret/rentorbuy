@@ -1,7 +1,7 @@
-import React from "react";
-import {configure, shallow} from "enzyme";
-import Home from "./Home";
-import Adapter from "enzyme-adapter-react-16";
+import React from 'react';
+import {configure, shallow} from 'enzyme';
+import Home from './Home';
+import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
 
