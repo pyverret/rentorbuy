@@ -10,7 +10,12 @@ describe('Rent Table', () => {
     const duration = 30;
     const rent = 100;
     const increase = 5;
-    const rentTable = shallow(<RentTable duration={duration} rent={rent} increase={increase} />);
+    const investment = 15;
+    const rentTable = shallow(<RentTable 
+        duration={duration}
+        rent={rent}
+        increase={increase}
+        investment={investment} />);
 
     it('Table is not rendered', () => {    
         expect(rentTable.find('table').length).toBe(1); 
@@ -22,7 +27,7 @@ describe('Rent Table', () => {
 
     describe('Rows', () => {
         it('are not rendered', () => {
-            expect(rentTable.find('tr').length).toBe(duration); 
+            expect(rentTable.find('tbody tr').length).toBe(duration); 
         });
 
         it('Year number is wrong', () => {
@@ -42,7 +47,31 @@ describe('Rent Table', () => {
                 const counter = index + 1;
                 rentAmount = percentageIncrease(rentAmount, increase, counter);
 
-                expect(node.text()).toEqual(rentAmount.toFixed(2).toString());
+                expect(node.text()).toEqual(rentAmount.toString());
+            });
+        });
+
+        it('Yearly Rent amount is wrong', () => {
+            const rents = rentTable.find('.rent-yearly');
+            let rentAmount = rent;
+
+            rents.forEach((node, index) => {
+                const counter = index + 1;
+                rentAmount = percentageIncrease(rentAmount, increase, counter);
+                const rentAmountYearly = (rentAmount * 12).toFixed(2);
+
+                expect(node.text()).toEqual(rentAmountYearly.toString());
+            });
+        });
+
+        it('Investment amount is wrong', () => {
+            const rents = rentTable.find('.investment');
+
+            rents.forEach((node, index) => {
+                const year = index + 1;
+                const investmentAmount = ((investment * 12) * year).toFixed(2);
+
+                expect(node.text()).toEqual(investmentAmount.toString());
             });
         });
     });

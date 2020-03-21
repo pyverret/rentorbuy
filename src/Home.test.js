@@ -106,4 +106,64 @@ describe('Home Page', () => {
             expect(homePage.state()[selector]).toEqual(0);
         });
     });
+
+    describe('Investment', () => {
+        const selector = 'investment';
+        const input = homePage.find(`#${selector}`);
+        const label = homePage.find({htmlFor: selector});
+
+        it('Not Displayed', () => {
+            expect(input.length).toEqual(1);
+        });
+
+        it('Wrong default value', () => {
+            expect(homePage.state()[selector]).toBe(0);
+        });
+
+        it('Label is wrong',() => {
+            expect(label.text()).toEqual('Investment Per Month');
+        });
+
+        it("input Change", () => {
+            input.props().onChange({target: {name: 'value', value: 123}});
+
+            expect(homePage.state()[selector]).toBe(123);
+        });
+
+        it("Input Negative Number Return Zero", () => {
+            input.props().onChange({target: { value: -1 }});
+    
+            expect(homePage.state()[selector]).toEqual(0);
+        });
+    });
+
+    describe('Investment Growth', () => {
+        const selector = 'growth';
+        const input = homePage.find(`#${selector}`);
+        const label = homePage.find({htmlFor: selector});
+
+        it('Not Displayed', () => {
+            expect(input.length).toEqual(1);
+        });
+
+        it('Wrong default value', () => {
+            expect(homePage.state()[selector]).toBe(0);
+        });
+
+        it('Label is wrong',() => {
+            expect(label.text()).toEqual('Investment growth');
+        });
+
+        it("input Change", () => {
+            input.props().onChange({target: {name: 'value', value: 123}});
+
+            expect(homePage.state()[selector]).toBe(123);
+        });
+
+        it("Input Negative Number Return Zero", () => {
+            input.props().onChange({target: { value: -1 }});
+    
+            expect(homePage.state()[selector]).toEqual(0);
+        });
+    });
 });

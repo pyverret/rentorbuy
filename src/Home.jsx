@@ -6,10 +6,12 @@ class Home extends React.Component {
     constructor(props) {
         super(props);
 
-        this.inputFields = [
+        this.inputFieldsRent = [
             {name:'rent-monthly', value: 0, text:'Monthly Rent Cost', type: 'number'},
             {name:'rent-increase-percentage', value: 0, text:'Yearly Rent Increase', type: 'number'},
-            {name:'duration', value: 0, text:'Duration', type: 'number'}
+            {name:'duration', value: 0, text:'Duration', type: 'number'},
+            {name:'investment', value: 0, text:'Investment Per Month', type: 'number'},
+            {name:'growth', value: 0, text:'Investment growth', type: 'number'}
         ];
 
         this.state = this.createDefaultStates();
@@ -20,7 +22,7 @@ class Home extends React.Component {
     createDefaultStates() {
         const state = {};
 
-        this.inputFields.forEach((input) => {
+        this.inputFieldsRent.forEach((input) => {
             state[input.name] = input.value;
         });
         
@@ -30,15 +32,21 @@ class Home extends React.Component {
     render () {
         return <div>
                 <p>Home Text</p>
-                {this.createInputs()}
-                <RentTable duration={this.state['duration']} rent={this.state['rent-monthly']} increase={this.state['rent-increase-percentage']}/>
+                {this.createRentInputs()}
+                <hr/>
+                <RentTable 
+                    duration={this.state['duration']}
+                    rent={this.state['rent-monthly']}
+                    increase={this.state['rent-increase-percentage']}
+                    investment={this.state['investment']}
+                    growth={this.state['growth']} />
             </div>
     }
 
-    createInputs() {
+    createRentInputs() {
         const inputs = [];
 
-        this.inputFields.forEach((input) => {
+        this.inputFieldsRent.forEach((input) => {
             inputs.push(
                 <div key={input.name}>
                     <label htmlFor={input.name}>{input.text}</label>
