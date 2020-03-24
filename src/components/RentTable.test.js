@@ -74,5 +74,12 @@ describe('Rent Table', () => {
                 expect(node.text()).toEqual(investmentAmount.toString());
             });
         });
+
+        it('Value of investment amount is wrong', () => {
+            // TODO TEST
+            // Formula
+            // amount * Math.pow(1 + percent, nbYears);
+            // const test = 100 * Math.pow(1 + 0.05, 1);
+        });
     });
 });

@@ -1,5 +1,5 @@
 import React from 'react';
-import {percentageIncrease} from '../utils/number';
+import {percentageIncrease, compoundInterest} from '../utils/number';
 
 class RentTable extends React.Component {
     constructor(props) {
@@ -37,8 +37,7 @@ class RentTable extends React.Component {
                 <td className="rent">{rent}</td>
                 <td className="rent-yearly">{rentYearly}</td>
                 <td className="investment">{investment}</td>
-                {/* TODO: CALCULATE INVESTMENT GROWTH */}
-                <td className="investment-value">{this.props.growth}</td>
+                <td className="investment-value">{compoundInterest(investment, this.props.growth, i)}</td>
             </tr>;
             rentRows.push(row);        
         }
