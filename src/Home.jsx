@@ -1,18 +1,11 @@
 import React from 'react';
 import RentTable from './components/RentTable';
 import {onlyPositiveNumber} from './utils/number';
+import * as Inputs from './utils/input';
 
 class Home extends React.Component {
     constructor(props) {
         super(props);
-
-        this.inputFieldsRent = [
-            {name:'rent-monthly', value: 0, text:'Monthly Rent Cost', type: 'number'},
-            {name:'rent-increase-percentage', value: 0, text:'Yearly Rent Increase', type: 'number'},
-            {name:'duration', value: 0, text:'Duration', type: 'number'},
-            {name:'investment', value: 0, text:'Investment Per Month', type: 'number'},
-            {name:'growth', value: 0, text:'Investment growth', type: 'number'}
-        ];
 
         this.state = this.createDefaultStates();
 
@@ -21,8 +14,13 @@ class Home extends React.Component {
 
     createDefaultStates() {
         const state = {};
+        const inputList = [];
 
-        this.inputFieldsRent.forEach((input) => {
+        inputList.push(...Inputs.commonFields);
+        inputList.push(...Inputs.rentFields);
+        inputList.push(...Inputs.ownershipFields);
+
+        inputList.forEach((input) => {
             state[input.name] = input.value;
         });
         
@@ -31,8 +29,17 @@ class Home extends React.Component {
 
     render () {
         return <div>
-                <p>Home Text</p>
-                {this.createRentInputs()}
+                <h1>Home Text</h1>
+                <p>Energy cost is being ignored because you will mostlikely need to pay them no mather what.</p>
+                <p><strong>TODO: ADD (i) next to input with statistics</strong></p>
+                <hr/>
+                {this.createInputs(Inputs.commonFields)}
+                <hr/>
+                <h2>Renting</h2>
+                {this.createInputs(Inputs.rentFields)}
+                <hr/>
+                <h2>Ownership</h2>
+                {this.createInputs(Inputs.ownershipFields)}
                 <hr/>
                 <RentTable 
                     duration={this.state['duration']}
@@ -43,10 +50,10 @@ class Home extends React.Component {
             </div>
     }
 
-    createRentInputs() {
+    createInputs (inputList) {
         const inputs = [];
 
-        this.inputFieldsRent.forEach((input) => {
+        inputList.forEach((input) => {
             inputs.push(
                 <div key={input.name}>
                     <label htmlFor={input.name}>{input.text}</label>

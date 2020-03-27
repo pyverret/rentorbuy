@@ -38,6 +38,7 @@ class RentTable extends React.Component {
                 <td className="rent-yearly">{rentYearly}</td>
                 <td className="investment">{investment}</td>
                 <td className="investment-value">{compoundInterest(investment, this.props.growth, i)}</td>
+                <td className="value">{compoundInterest(investment, this.props.growth, i)}</td>
             </tr>;
 
             rentRows.push(row);        
