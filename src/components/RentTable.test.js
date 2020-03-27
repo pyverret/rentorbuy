@@ -1,7 +1,7 @@
 import React from 'react';
 import {configure, shallow} from 'enzyme';
 import RentTable from './RentTable';
-import {percentageIncrease} from '../utils/number';
+import {percentageIncrease, investmentAmount, compoundInterest} from '../utils/number';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
@@ -11,11 +11,13 @@ describe('Rent Table', () => {
     const rent = 100;
     const increase = 5;
     const investment = 15;
+    const growth = 5;
     const rentTable = shallow(<RentTable 
         duration={duration}
         rent={rent}
         increase={increase}
-        investment={investment} />);
+        investment={investment}
+        growth={growth} />);
 
     it('Table is not rendered', () => {    
         expect(rentTable.find('table').length).toBe(1); 
@@ -47,7 +49,7 @@ describe('Rent Table', () => {
                 const counter = index + 1;
                 rentAmount = percentageIncrease(rentAmount, increase, counter);
 
-                expect(node.text()).toEqual(rentAmount.toString());
+                expect(node.text()).toBe(rentAmount.toString());
             });
         });
 
@@ -60,7 +62,7 @@ describe('Rent Table', () => {
                 rentAmount = percentageIncrease(rentAmount, increase, counter);
                 const rentAmountYearly = (rentAmount * 12).toFixed(2);
 
-                expect(node.text()).toEqual(rentAmountYearly.toString());
+                expect(node.text()).toBe(rentAmountYearly.toString());
             });
         });
 
@@ -69,17 +71,22 @@ describe('Rent Table', () => {
 
             rents.forEach((node, index) => {
                 const year = index + 1;
-                const investmentAmount = ((investment * 12) * year).toFixed(2);
+                const investmentValue = investmentAmount(investment, year);
 
-                expect(node.text()).toEqual(investmentAmount.toString());
+                expect(node.text()).toBe(investmentValue.toString());
             });
         });
 
         it('Value of investment amount is wrong', () => {
-            // TODO TEST
-            // Formula
-            // amount * Math.pow(1 + percent, nbYears);
-            // const test = 100 * Math.pow(1 + 0.05, 1);
+            const growthRows = rentTable.find('.investment-value');
+
+            growthRows.forEach((node, index) => {
+                const year = index + 1;
+                const investmentValue = investmentAmount(investment, year);
+                const growthAmount = compoundInterest(investmentValue, growth, year);
+
+                expect(node.text()).toBe(growthAmount.toString());
+            });
         });
     });
 });
