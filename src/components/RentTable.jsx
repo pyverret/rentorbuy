@@ -1,5 +1,5 @@
 import React from 'react';
-import {percentageIncrease, investmentAmount, compoundInterest} from '../utils/number';
+import {percentageIncrease, investmentAmount, compoundInterest, floatSum, floatMinus} from '../utils/number';
 
 class RentTable extends React.Component {
     constructor(props) {
@@ -32,7 +32,7 @@ class RentTable extends React.Component {
         for(var i = 1; i <= this.props.duration; i++) {
             rent = percentageIncrease(rent, this.props.increase, i);
             const rentYearly = (rent * 12).toFixed(2);
-            totalRentPaid = (parseFloat(totalRentPaid) + parseFloat(rentYearly)).toFixed(2);
+            totalRentPaid = floatSum([totalRentPaid, rentYearly]);
             const investment = investmentAmount(this.props.investment, i);
             const investmentTotalValue = compoundInterest(investment, this.props.growth, i);
 
@@ -42,7 +42,7 @@ class RentTable extends React.Component {
                 <td className="rent-yearly">{rentYearly}</td>
                 <td className="investment">{investment}</td>
                 <td className="investment-value">{investmentTotalValue}</td>
-                <td className="value">{(parseFloat(investmentTotalValue) - parseFloat(totalRentPaid)).toFixed(2)}</td>
+                <td className="value">{floatMinus(investmentTotalValue, [totalRentPaid])}</td>
             </tr>;
 
             rentRows.push(row);        

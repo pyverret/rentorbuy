@@ -22,4 +22,22 @@ export function compoundInterest (amount, percentage, years = 1) {
     return compounded.toFixed(2);
 }
 
-export default {onlyPositiveNumber, percentageIncrease, investmentAmount, compoundInterest};
+export function floatSum (numberList) {
+    let total = 0;
+
+    numberList.forEach((number) => {
+        total = parseFloat(total) + parseFloat(number);
+    });
+
+    return total.toFixed(2);
+}
+
+export function floatMinus (total, numberList) {
+    numberList.forEach((number) => {
+        total = parseFloat(total) - parseFloat(number);
+    });
+
+    return total.toFixed(2);
+}
+
+export default {onlyPositiveNumber, percentageIncrease, investmentAmount, compoundInterest, floatSum, floatMinus};
