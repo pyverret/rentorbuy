@@ -31,7 +31,11 @@ class Home extends React.Component {
         return <div>
                 <h1>Home Text</h1>
                 <p>Energy cost is being ignored because you will mostlikely need to pay them no mather what.</p>
+                <p><strong>TODO: Ownership table</strong></p>
                 <p><strong>TODO: ADD (i) next to input with statistics</strong></p>
+                <p><strong>TODO: Investment Per Month Amount Growth?</strong></p>
+                <p><strong>TODO: Yearly lost/gained?</strong></p>
+                <p><strong>TODO: Diff rent vs ownership per year?</strong></p>
                 <hr/>
                 {this.createInputs(Inputs.commonFields)}
                 <hr/>
