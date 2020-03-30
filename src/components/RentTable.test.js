@@ -1,7 +1,7 @@
 import React from 'react';
 import {configure, shallow} from 'enzyme';
 import RentTable from './RentTable';
-import {percentageIncrease, investmentAmount, compoundInterest} from '../utils/number';
+import {percentageIncrease, investmentAmount, compoundInterest, floatMinus} from '../utils/number';
 import Adapter from 'enzyme-adapter-react-16';
 
 configure({ adapter: new Adapter() });
@@ -77,16 +77,45 @@ describe('Rent Table', () => {
             });
         });
 
+        function getGrowthAmount (index, investment) {
+            const year = index + 1;
+            const investmentValue = investmentAmount(investment, year);
+
+            return compoundInterest(investmentValue, growth, year);
+        }
+
         it('Value of investment amount is wrong', () => {
             const growthRows = rentTable.find('.investment-value');
 
             growthRows.forEach((node, index) => {
-                const year = index + 1;
-                const investmentValue = investmentAmount(investment, year);
-                const growthAmount = compoundInterest(investmentValue, growth, year);
+                const growthAmount = getGrowthAmount(index, investment);
 
                 expect(node.text()).toBe(growthAmount.toString());
             });
         });
+
+        // Todo: Alwayse Success?
+        // it('Worth', () => {
+            // const worths = rentTable.find('.worth');
+            // const growths = rentTable.find('.investment-value');
+            // const rents = rentTable.find('.rent-yearly');
+            // const growthList = [];
+            // const rentTotalList = [];
+            // let rentAmount = rent;
+
+            // growths.forEach((node, index) => {
+            //     growthList.push(getGrowthAmount(index, investment));
+            // });
+
+            // rents.forEach((node, index) => {
+            //     const counter = index + 1;
+            //     rentAmount = percentageIncrease(rentAmount, increase, counter);
+            //     rentTotalList.push((rentAmount * 12).toFixed(2));
+            // });
+
+            // worths.forEach((node, index) => {
+            //     expect(true).toBe(123);
+            // });
+        // });
     });
 });
