@@ -25,7 +25,7 @@ export function compoundInterest (amount, percentage, years = 1) {
 export function floatSum (numberList) {
     let total = 0;
 
-    numberList.forEach((number) => {
+    numberList?.forEach((number) => {
         total = parseFloat(total) + parseFloat(number);
     });
 
@@ -33,7 +33,7 @@ export function floatSum (numberList) {
 }
 
 export function floatMinus (total, numberList) {
-    numberList.forEach((number) => {
+    numberList?.forEach((number) => {
         total = parseFloat(total) - parseFloat(number);
     });
 
