@@ -1,5 +1,6 @@
 import React from 'react';
 import RentTable from './components/RentTable';
+import BuyTable from './components/BuyTable';
 import {onlyPositiveNumber} from './utils/number';
 import * as Inputs from './utils/input';
 
@@ -45,12 +46,17 @@ class Home extends React.Component {
                 <h2>Ownership</h2>
                 {this.createInputs(Inputs.ownershipFields)}
                 <hr/>
-                <RentTable 
-                    duration={this.state['duration']}
-                    rent={this.state['rent-monthly']}
-                    increase={this.state['rent-increase-percentage']}
-                    investment={this.state['investment']}
-                    growth={this.state['growth']} />
+                <div style={{display: 'inline-block', width: '50%'}}>
+                    <RentTable 
+                        duration={this.state['duration']}
+                        rent={this.state['rent-monthly']}
+                        increase={this.state['rent-increase-percentage']}
+                        investment={this.state['investment']}
+                        growth={this.state['growth']} />
+                </div>
+                <div style={{display: 'inline-block', width: '50%'}}>
+                    <BuyTable />
+                </div>
             </div>
     }
 
