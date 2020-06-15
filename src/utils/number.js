@@ -22,18 +22,18 @@ export function compoundInterest (amount, percentage, years = 1) {
     return compounded.toFixed(2);
 }
 
-export function floatSum (numberList) {
+export function floatSum (numberList = []) {
     let total = 0;
 
-    numberList?.forEach((number) => {
+    numberList.forEach((number) => {
         total = parseFloat(total) + parseFloat(number);
     });
 
     return total.toFixed(2);
 }
 
-export function floatMinus (total, numberList) {
-    numberList?.forEach((number) => {
+export function floatMinus (total, numberList = []) {
+    numberList.forEach((number) => {
         total = parseFloat(total) - parseFloat(number);
     });
 
